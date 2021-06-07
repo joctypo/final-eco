@@ -2,8 +2,8 @@ package com.joctypo.finaleco;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,10 +14,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText etName,etEmailRegister,etPasswordRegister,etPhoneNumber;
-    Button btnDesigner,btnClient,btnRegister;
+    EditText etName, etEmailRegister, etPasswordRegister, etPhoneNumber;
+    Button btnDesigner, btnClient, btnRegister;
     FirebaseDatabase db;
     FirebaseAuth auth;
+    String rol="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         //definicion UI
-        etName =  findViewById(R.id.etName);
+        etName = findViewById(R.id.etName);
         etEmailRegister = findViewById(R.id.etEmailRegister);
         etPasswordRegister = findViewById(R.id.etPasswordRegister);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
@@ -33,70 +35,81 @@ public class RegisterActivity extends AppCompatActivity {
         btnClient = findViewById(R.id.btnClient);
         btnRegister = findViewById(R.id.btnRegister);
 
-        db=FirebaseDatabase.getInstance();
-        auth=FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
 
         btnRegister.setOnClickListener(v -> {
 
             Register();
         });
 
+        btnDesigner.setOnClickListener(v -> {
 
+           rol="designer";
+           btnDesigner.setBackgroundResource(R.drawable.btn_nobg);
+           btnClient.setBackgroundResource(R.drawable.btn_unselected);
+
+        });
+
+        btnClient.setOnClickListener(v -> {
+
+            rol="client";
+            btnDesigner.setBackgroundResource(R.drawable.btn_unselected);
+            btnClient.setBackgroundResource(R.drawable.btn_nobg);
+
+        });
 
     }
 
-    private void Register(){
+    private void Register() {
 
         //dejó algun input vacio
-    if(etName.getText().toString().isEmpty()||etEmailRegister.getText().toString().isEmpty()||
-            etPasswordRegister.getText().toString().isEmpty()||etPhoneNumber.getText().toString().isEmpty()){
 
-        Toast.makeText(this, "Por favor complete todos los datos", Toast.LENGTH_SHORT).show();
-    }
 
-    else{
+        if (etName.getText().toString().isEmpty() || etEmailRegister.getText().toString().isEmpty() ||
+                etPasswordRegister.getText().toString().isEmpty() || etPhoneNumber.getText().toString().isEmpty()||rol.contentEquals("")) {
 
-        String name,email,password,phoneNumber;
-        name = etName.getText().toString();
-        email = etEmailRegister.getText().toString();
-        password = etPasswordRegister.getText().toString();
-        phoneNumber=etPhoneNumber.getText().toString();
-     auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task ->{
 
-         if(task.isComplete()){
+            Toast.makeText(this, "Por favor complete todos los datos", Toast.LENGTH_SHORT).show();
 
-             String id = auth.getCurrentUser().getUid();
+        } else {
 
-             User user = new User(id,name,email,password,phoneNumber);
+            String name, email, password, phoneNumber;
+            name = etName.getText().toString();
+            email = etEmailRegister.getText().toString();
+            password = etPasswordRegister.getText().toString();
+            phoneNumber = etPhoneNumber.getText().toString();
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
 
-             db.getReference().child("users").child(id).setValue(user).addOnCompleteListener(registro ->{
+                if (task.isComplete()) {
 
-                if(registro.isSuccessful()){
 
-                    Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                    String id = auth.getCurrentUser().getUid();
+
+                    User user = new User(id, name, email, phoneNumber,rol);
+
+                    db.getReference().child("users").child(id).setValue(user).addOnCompleteListener(registro -> {
+
+                        if (registro.isSuccessful()) {
+
+                            Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(this,HomeActivity.class);
+                            startActivity(intent);
+                        } else {
+
+                            Toast.makeText(this, registro.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } else {
+
+                    Toast.makeText(this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
                 }
-                else{
 
-                    Toast.makeText(this, registro.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-             });
-
-         }
-         else{
-
-             Toast.makeText(this, task.getResult().toString(), Toast.LENGTH_SHORT).show();
-         }
-
-     });
+            });
 
 
-
-
-
-
-
-
-    }
+        }
 
 
     }

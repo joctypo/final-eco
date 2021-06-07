@@ -17,17 +17,16 @@ public class LoginActivity extends AppCompatActivity {
     EditText etEmail,etPassword;
     Button btnLogin;
     TextView register;
-    FirebaseDatabase db;
     FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         auth = FirebaseAuth.getInstance();
-        etEmail = (EditText) findViewById(R.id.etEmailLogin);
-        etPassword = (EditText) findViewById(R.id.etPasswordLogin);
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        register = (TextView) findViewById(R.id.tvRegister);
+        etEmail = findViewById(R.id.etEmailLogin);
+        etPassword =  findViewById(R.id.etPasswordLogin);
+        btnLogin =  findViewById(R.id.btnLogin);
+        register =  findViewById(R.id.tvRegister);
 
 
         btnLogin.setOnClickListener(v->{

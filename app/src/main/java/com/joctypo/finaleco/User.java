@@ -2,35 +2,21 @@ package com.joctypo.finaleco;
 
 public class User {
 
-    String id;
-    String name;
-    String email;
-    String password;
-    String rol;
-    String phoneNumber;
-
-
-
+    String id,name,email,rol,phoneNumber, age, institution,profesion;
 
     public User(){
 
     }
 
-    public User(String id, String name, String email, String password,String phoneNumber) {
+    public User(String id, String name, String email,String phoneNumber,String rol) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
         this.phoneNumber = phoneNumber;
-    }
-
-    public User(String id, String name, String email, String password,String phoneNumber,String rol) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
         this.rol=rol;
-        this.phoneNumber = phoneNumber;
+        age ="";
+        institution ="";
+        profesion="";
     }
 
     public String getRol() {
@@ -73,11 +59,27 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getAge() {
+        return age;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
+    }
+
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
     }
 }
