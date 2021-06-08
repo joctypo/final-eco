@@ -26,7 +26,7 @@
             app:srcCompat="@drawable/ic_diseno_3d" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/tvProjectDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -44,8 +44,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            app:layout_constraintStart_toStartOf="@+id/tvProjectDescription"
+            app:layout_constraintTop_toBottomOf="@+id/tvProjectDescription"
             app:srcCompat="@drawable/ic_calendar_clear_outline" />
 
         <TextView
@@ -70,7 +70,7 @@
             app:srcCompat="@drawable/ic_phone" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tvNumberComents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
@@ -84,9 +84,9 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView9"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toTopOf="@+id/textView9"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNumberComents"
+            app:layout_constraintStart_toEndOf="@+id/tvNumberComents"
+            app:layout_constraintTop_toTopOf="@+id/tvNumberComents"
             app:srcCompat="@drawable/weyui" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
