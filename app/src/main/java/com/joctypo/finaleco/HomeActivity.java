@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     ProjectAdapter projectAdapter;
     FirebaseUser user;
     ListView listViewProjects;
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class HomeActivity extends AppCompatActivity {
         category = "";
         user = FirebaseAuth.getInstance().getCurrentUser();
         LoadProjects();
+
 
 
         //creacion del projecto
@@ -112,7 +114,6 @@ public class HomeActivity extends AppCompatActivity {
                         projectAdapter.AddNewProject(project);
                     }
 
-
                 }
 
                 @Override
@@ -163,4 +164,6 @@ public class HomeActivity extends AppCompatActivity {
 
 
     }
+
+
 }

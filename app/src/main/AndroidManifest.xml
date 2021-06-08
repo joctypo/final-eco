@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalEco">
-        <activity android:name=".UpdateProfileActivity"></activity>
+        <activity android:name=".HomeDesignerActivity"></activity>
+        <activity android:name=".UpdateProfileActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterActivity" />
