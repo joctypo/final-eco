@@ -18,7 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnDesigner, btnClient, btnRegister;
     FirebaseDatabase db;
     FirebaseAuth auth;
-    String rol="";
+    String rol = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,22 +38,19 @@ public class RegisterActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
 
-        btnRegister.setOnClickListener(v -> {
-
-            Register();
-        });
+        btnRegister.setOnClickListener(v -> Register());
 
         btnDesigner.setOnClickListener(v -> {
 
-           rol="designer";
-           btnDesigner.setBackgroundResource(R.drawable.btn_nobg);
-           btnClient.setBackgroundResource(R.drawable.btn_unselected);
+            rol = "designer";
+            btnDesigner.setBackgroundResource(R.drawable.btn_nobg);
+            btnClient.setBackgroundResource(R.drawable.btn_unselected);
 
         });
 
         btnClient.setOnClickListener(v -> {
 
-            rol="client";
+            rol = "client";
             btnDesigner.setBackgroundResource(R.drawable.btn_unselected);
             btnClient.setBackgroundResource(R.drawable.btn_nobg);
 
@@ -67,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
         if (etName.getText().toString().isEmpty() || etEmailRegister.getText().toString().isEmpty() ||
-                etPasswordRegister.getText().toString().isEmpty() || etPhoneNumber.getText().toString().isEmpty()||rol.contentEquals("")) {
+                etPasswordRegister.getText().toString().isEmpty() || etPhoneNumber.getText().toString().isEmpty() || rol.contentEquals("")) {
 
 
             Toast.makeText(this, "Por favor complete todos los datos", Toast.LENGTH_SHORT).show();
@@ -86,15 +83,30 @@ public class RegisterActivity extends AppCompatActivity {
 
                     String id = auth.getCurrentUser().getUid();
 
-                    User user = new User(id, name, email, phoneNumber,rol);
+                    User user = new User(id, name, email, phoneNumber, rol);
 
                     db.getReference().child("users").child(id).setValue(user).addOnCompleteListener(registro -> {
 
                         if (registro.isSuccessful()) {
-
                             Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(this, HomeActivity.class);
-                            startActivity(intent);
+
+                            Intent intent;
+                            switch (user.getRol()) {
+
+                                case "designer":
+
+                                    intent = new Intent(this, HomeDesignerActivity.class);
+                                    startActivity(intent);
+                                    break;
+
+                                case "user":
+                                    intent = new Intent(this, HomeActivity.class);
+                                    startActivity(intent);
+                                    break;
+
+                            }
+
+
                         } else {
 
                             Toast.makeText(this, registro.getException().getMessage(), Toast.LENGTH_SHORT).show();

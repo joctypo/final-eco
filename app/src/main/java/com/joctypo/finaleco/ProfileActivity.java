@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvEmail,tvName,tvEditProfile,tvAge,tvInstitution,tvCareer;
     FirebaseAuth auth;
     FirebaseDatabase db;
+    ImageView imageViewProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvName = findViewById(R.id.tvName);
         auth=FirebaseAuth.getInstance();
         db=FirebaseDatabase.getInstance();
+        imageViewProfile = findViewById(R.id.imageViewProfile);
 
         LoadProfile();
 
@@ -57,7 +60,17 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange( DataSnapshot snapshot) {
 
                 User user = snapshot.getValue(User.class);
+                switch (user.getRol()){
 
+                    case"designer":
+
+                        imageViewProfile.setImageResource(R.drawable.weyui);
+                        break;
+                    case"user":
+                        imageViewProfile.setImageResource(R.drawable.weyui2);
+                        break;
+
+                }
                 tvEmail.setText( user.getEmail() );
                 tvName.setText( user.getName() );
                 tvAge.setText( user.getAge() );
