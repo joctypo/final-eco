@@ -93,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
                         if (registro.isSuccessful()) {
 
                             Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(this,HomeActivity.class);
+                            Intent intent = new Intent(this, HomeActivity.class);
                             startActivity(intent);
                         } else {
 

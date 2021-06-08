@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -59,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 //el usuario se logea
                if(task.isSuccessful()){
 
-                   Intent intent = new Intent(this,HomeActivity.class);
+                   Intent intent = new Intent(this, HomeActivity.class);
                    startActivity(intent);
 
                    Toast.makeText(this, "Logeado papu",Toast.LENGTH_SHORT).show();

@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_fotografia" />
-                            <entry key="sourceFile" value="C:\Users\camil\Desktop\Menu\fotografia.svg" />
+                            <entry key="outputName" value="ic_fotografia_nobg" />
+                            <entry key="sourceFile" value="C:\Users\camil\Desktop\fotografia_nobg.svg" />
                           </map>
                         </option>
                       </PersistentState>
