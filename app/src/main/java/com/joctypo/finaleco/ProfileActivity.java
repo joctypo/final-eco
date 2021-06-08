@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView tvEmail,tvName,tvEditProfile,tvAge,tvInstitution;
+    TextView tvEmail,tvName,tvEditProfile,tvAge,tvInstitution,tvCareer;
     FirebaseAuth auth;
     FirebaseDatabase db;
 
@@ -30,6 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvEditProfile= findViewById(R.id.tvEditProfile);
         tvAge = findViewById(R.id.tvAge);
         tvInstitution = findViewById(R.id.tvInstitution);
+        tvCareer= findViewById(R.id.tvCareer);
         tvName = findViewById(R.id.tvName);
         auth=FirebaseAuth.getInstance();
         db=FirebaseDatabase.getInstance();
@@ -60,6 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
                 tvEmail.setText( user.getEmail() );
                 tvName.setText( user.getName() );
                 tvAge.setText( user.getAge() );
+                tvCareer.setText( user.getProfesion());
                 tvInstitution.setText( user.getInstitution());
             }
 
