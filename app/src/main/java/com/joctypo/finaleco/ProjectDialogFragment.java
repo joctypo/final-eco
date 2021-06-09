@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +37,8 @@ import java.util.UUID;
 public class ProjectDialogFragment extends DialogFragment {
 
     private EditText etComment;
-    private TextView tvProjectDescription, tvDate;
+    private TextView tvProjectDescription, tvDate,tvNumberComents;
+    ImageView imgComment;
     CommentAdapter commentAdapter;
     Button btnComment;
     FirebaseDatabase db;
@@ -73,10 +75,12 @@ public class ProjectDialogFragment extends DialogFragment {
         btnComment = root.findViewById(R.id.btnComment);
         tvDate = root.findViewById(R.id.tvDate);
         listviewComments.setAdapter(commentAdapter);
+        tvNumberComents = root.findViewById(R.id.tvNumberComents);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        imgComment=root.findViewById(R.id.imgComment);
+
 
         if(user != null){
-
 
             //baja la informacion del proyecto
             db.getReference().child("projects").child(id).addValueEventListener(
@@ -124,6 +128,12 @@ public class ProjectDialogFragment extends DialogFragment {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
+                if(snapshot.getChildrenCount()>0){
+
+                    imgComment.setImageResource(R.drawable.ic_comment_number);
+                    tvNumberComents.setText(String.valueOf(snapshot.getChildrenCount()));
+
+                }
                 commentAdapter.Clear();
                 for (DataSnapshot child:
                       snapshot.getChildren()) {

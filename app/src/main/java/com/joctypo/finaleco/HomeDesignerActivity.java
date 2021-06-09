@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,8 +19,9 @@ public class HomeDesignerActivity extends AppCompatActivity {
     ListView listviewMyProjects, listViewProjects;
     FirebaseDatabase db;
     FirebaseAuth auth;
+    TextView tvNumberComents;
     ProjectAdapter myProjectAdapter;
-    ImageView btnProfile;
+    ImageView btnProfile,imgComment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,5 +72,9 @@ public class HomeDesignerActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
 
 }
