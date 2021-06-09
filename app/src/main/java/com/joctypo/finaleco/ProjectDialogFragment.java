@@ -37,6 +37,7 @@ public class ProjectDialogFragment extends DialogFragment {
 
     private EditText etComment;
     private TextView tvProjectDescription, tvDate;
+    CommentAdapter commentAdapter;
     Button btnComment;
     FirebaseDatabase db;
     FirebaseAuth auth;
@@ -62,6 +63,7 @@ public class ProjectDialogFragment extends DialogFragment {
         View root = inflater.inflate(R.layout.fragment_project_dialog, container, false);
 
         Bundle args = getArguments();
+        commentAdapter = new CommentAdapter();
         String id = args.getString("id");
         db = FirebaseDatabase.getInstance();
         listviewComments = root.findViewById(R.id.listviewComments);
@@ -70,9 +72,11 @@ public class ProjectDialogFragment extends DialogFragment {
         tvProjectDescription = root.findViewById(R.id.tvProjectDescription);
         btnComment = root.findViewById(R.id.btnComment);
         tvDate = root.findViewById(R.id.tvDate);
+        listviewComments.setAdapter(commentAdapter);
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user != null){
+
 
             //baja la informacion del proyecto
             db.getReference().child("projects").child(id).addValueEventListener(
@@ -87,7 +91,7 @@ public class ProjectDialogFragment extends DialogFragment {
                             tvDate.setText(month+""+ project.getDay());
 
 
-
+                            LoadComments();
                         }
 
                         @Override
@@ -96,6 +100,8 @@ public class ProjectDialogFragment extends DialogFragment {
                         }
                     }
             );
+
+
         }
 
         btnComment.setOnClickListener(v -> {
@@ -112,6 +118,29 @@ public class ProjectDialogFragment extends DialogFragment {
         super.onAttach(context);
     }
 
+    private void LoadComments(){
+
+        db.getReference().child("comments").orderByChild("projectId").equalTo(project.getId()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                commentAdapter.Clear();
+                for (DataSnapshot child:
+                      snapshot.getChildren()) {
+
+                    Comment comment = child.getValue(Comment.class);
+                    commentAdapter.AddComment(comment);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
     private void UploadComment() {
 
         if (etComment.getText().toString().isEmpty()) {
@@ -119,7 +148,7 @@ public class ProjectDialogFragment extends DialogFragment {
             Toast.makeText(context, "No puedes publicar un comentario vacio", Toast.LENGTH_SHORT).show();
         } else {
 
-            Comment comment = new Comment(UUID.randomUUID().toString(), project.getId(), user.getUid());
+            Comment comment = new Comment(UUID.randomUUID().toString(),etComment.getText().toString(), project.getId(), user.getUid());
 
             db.getReference().child("comments").child(comment.getId()).setValue(comment).addOnCompleteListener(task->{
 

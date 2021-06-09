@@ -2,11 +2,14 @@ package com.joctypo.finaleco;
 
 public class Comment {
 
-   private  String id,projectId,designerId;
+   private  String id,comment,projectId,designerId;
 
-    public Comment(String id, String projectId, String designerId) {
+   public Comment(){
+
+   }
+    public Comment(String id, String comment, String projectId, String designerId) {
         this.id = id;
-
+        this.comment = comment;
         this.projectId = projectId;
         this.designerId = designerId;
     }
@@ -17,6 +20,14 @@ public class Comment {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public String getProjectId() {
