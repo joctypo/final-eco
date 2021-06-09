@@ -1,4 +1,4 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.adapters.ProjectAdapter;
+import com.joctypo.finaleco.model.Project;
 
 public class HomeDesignerActivity extends AppCompatActivity {
 

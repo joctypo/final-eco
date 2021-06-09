@@ -1,8 +1,8 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.model;
 
 public class User {
 
-    String id,name,email,rol,phoneNumber, age, institution,profesion;
+    private String id,name,email,rol,phoneNumber, age, institution,profesion;
 
     public User(){
 
@@ -82,4 +82,6 @@ public class User {
     public void setProfesion(String profesion) {
         this.profesion = profesion;
     }
+
+
 }

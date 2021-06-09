@@ -1,4 +1,4 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.adapters;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -18,18 +17,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.fragments.ProjectDialogFragment;
+import com.joctypo.finaleco.fragments.ProjectDialogFragmentUser;
+import com.joctypo.finaleco.model.Project;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-public class ProjectAdapter extends BaseAdapter {
+public class ProjectAdapterUser extends BaseAdapter {
 
     ArrayList<Project> projectArrayList;
-    ProjectDialogFragment dialog;
+    ProjectDialogFragmentUser dialog;
     FirebaseDatabase db;
 
-    public ProjectAdapter() {
+    public ProjectAdapterUser() {
 
         projectArrayList = new ArrayList<>();
         db = FirebaseDatabase.getInstance();
@@ -72,9 +75,8 @@ public class ProjectAdapter extends BaseAdapter {
                 break;
             case "modelado3D":
                 imgCategory.setImageResource(R.drawable.ic_diseno_3d);
-
+                break;
             case "video":
-
                 imgCategory.setImageResource(R.drawable.ic_fotografia);
                 break;
         }
@@ -103,7 +105,7 @@ public class ProjectAdapter extends BaseAdapter {
 
         });
 
-        tvDate.setText(month+""+projectArrayList.get(position).getDay());
+        tvDate.setText(month + "" + projectArrayList.get(position).getDay());
         convertView.setOnClickListener(v -> {
 
             OpenFragment(parent.getContext(), projectArrayList.get(position).getId());
@@ -126,7 +128,7 @@ public class ProjectAdapter extends BaseAdapter {
 
         Bundle args = new Bundle();
         args.putString("id", id);
-        dialog = ProjectDialogFragment.newInstance();
+        dialog = ProjectDialogFragmentUser.newInstance();
         FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
         dialog.setArguments(args);
         dialog.show(manager, "dialog");

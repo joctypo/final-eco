@@ -1,10 +1,9 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +15,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.activities.ProfileActivity;
+import com.joctypo.finaleco.model.User;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
@@ -53,9 +55,9 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     currentUser.setInstitution(etInstitution.getText().toString());
                     currentUser.setProfesion(etProfesion.getText().toString());
 
-                    db.getReference().child("users").child(currentUser.id).setValue(currentUser).addOnCompleteListener(task->{
+                    db.getReference().child("users").child(currentUser.getId()).setValue(currentUser).addOnCompleteListener(task->{
 
-                        Intent intent = new Intent(this,ProfileActivity.class);
+                        Intent intent = new Intent(this, ProfileActivity.class);
                         startActivity(intent);
                         finish();
                     });

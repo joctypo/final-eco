@@ -1,6 +1,5 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,6 +17,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.adapters.ProjectAdapter;
+import com.joctypo.finaleco.adapters.ProjectAdapterUser;
+import com.joctypo.finaleco.model.Project;
 
 import java.util.Calendar;
 import java.util.UUID;
@@ -30,10 +33,10 @@ public class HomeActivity extends AppCompatActivity {
     String category;
     FirebaseDatabase db;
     FirebaseAuth auth;
-    ProjectAdapter projectAdapter;
+    ProjectAdapterUser projectAdapterUser;
     FirebaseUser user;
     ListView listViewProjects;
-    User currentUser;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         btnProfile = findViewById(R.id.btnProfile);
         btn2d = findViewById(R.id.img2d);
         btn3d = findViewById(R.id.img3d);
-        projectAdapter = new ProjectAdapter();
+        projectAdapterUser = new ProjectAdapterUser();
         btnvideo = findViewById(R.id.imgVideo);
         btnPublishProject = findViewById(R.id.btnPublishProject);
         etProjectDescription = findViewById(R.id.etProjectDescription);
@@ -103,15 +106,15 @@ public class HomeActivity extends AppCompatActivity {
 
                 @Override
                 public void onDataChange( DataSnapshot snapshot) {
-                    listViewProjects.setAdapter(projectAdapter);
+                    listViewProjects.setAdapter(projectAdapterUser);
                     Log.e("TAG", String.valueOf(snapshot.getChildrenCount()));
 
-                    projectAdapter.Clear();
+                    projectAdapterUser.Clear();
 
                     for (DataSnapshot child :snapshot.getChildren()) {
 
                         Project project = child.getValue(Project.class);
-                        projectAdapter.AddNewProject(project);
+                        projectAdapterUser.AddNewProject(project);
                     }
 
                 }

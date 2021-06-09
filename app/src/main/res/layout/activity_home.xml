@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".activities.HomeActivity">
 
     <TextView
         android:id="@+id/tvSubtitle"
@@ -14,7 +14,7 @@
 
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Proyectos para ti"
+        android:text="Tus proyectos"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"

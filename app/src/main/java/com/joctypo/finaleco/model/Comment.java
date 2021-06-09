@@ -1,4 +1,4 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.model;
 
 public class Comment {
 

@@ -1,4 +1,4 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +11,10 @@ import android.widget.Toast;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.activities.HomeActivity;
+import com.joctypo.finaleco.activities.HomeDesignerActivity;
+import com.joctypo.finaleco.model.User;
 
 public class RegisterActivity extends AppCompatActivity {
 

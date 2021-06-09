@@ -11,12 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalEco">
-        <activity android:name=".HomeDesignerActivity"></activity>
-        <activity android:name=".UpdateProfileActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".activities.ContractActivity"></activity>
+        <activity android:name=".activities.HomeDesignerActivity" />
+        <activity android:name=".activities.UpdateProfileActivity" />
+        <activity android:name=".activities.HomeActivity" />
+        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

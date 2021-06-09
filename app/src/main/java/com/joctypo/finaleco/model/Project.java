@@ -1,9 +1,10 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.model;
 
 public class Project {
 
-    private String id,userId,projectDescription,category;
+    private String id,userId,projectDescription,category,designerId;
     private int day,month;
+    private boolean taken;
 
 
     public Project(String id, String userId, String projectDescription, String category, int day, int month) {
@@ -13,12 +14,20 @@ public class Project {
         this.category = category;
         this.day = day;
         this.month = month;
+        this.taken =false;
     }
-
 
 
     public Project() {
 
+    }
+
+    public String getDesignerId() {
+        return designerId;
+    }
+
+    public void setDesignerId(String designerId) {
+        this.designerId = designerId;
     }
 
     public String getId() {
@@ -67,5 +76,13 @@ public class Project {
 
     public void setMonth(int month) {
         this.month = month;
+    }
+
+    public boolean isTaken() {
+        return taken;
+    }
+
+    public void setTaken(boolean taken) {
+        this.taken = taken;
     }
 }

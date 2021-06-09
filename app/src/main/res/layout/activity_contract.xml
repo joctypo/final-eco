@@ -4,34 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ProfileActivity">
+    tools:context=".activities.ContractActivity">
 
     <TextView
-        android:id="@+id/tvProfile"
+        android:id="@+id/tvNameUserContract"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Mi Perfil"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
+        android:layout_marginTop="16dp"
+        android:textColor="#2C2C2C"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imageViewProfile4"
+        app:layout_constraintStart_toStartOf="@+id/imageViewProfile4"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewProfile4" />
 
     <ImageView
-        android:id="@+id/imageViewProfile"
+        android:id="@+id/imageViewProfile4"
         android:layout_width="126dp"
         android:layout_height="126dp"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvProfile"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/weyui" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvName4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -42,32 +41,15 @@
         app:layout_constraintStart_toStartOf="@+id/imageViewProfile"
         app:layout_constraintTop_toBottomOf="@+id/imageViewProfile" />
 
-    <TextView
-        android:id="@+id/tvEditProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Editar perfil"
-        app:layout_constraintEnd_toEndOf="@+id/tvName"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="14dp"
-        android:layout_height="15dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvEditProfile"
-        app:layout_constraintEnd_toStartOf="@+id/tvEditProfile"
-        app:layout_constraintTop_toTopOf="@+id/tvEditProfile"
-        app:srcCompat="@drawable/ic_lapiz" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:visibility="visible"
-        app:layout_constraintTop_toBottomOf="@+id/tvEditProfile">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameUserContract">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -149,4 +131,20 @@
             app:layout_constraintStart_toEndOf="@+id/imageView6"
             app:layout_constraintTop_toBottomOf="@+id/tvCareer" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/btnContract"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/btn"
+        android:src="@drawable/btn_contract"
+        android:text="Button"
+        android:textColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

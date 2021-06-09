@@ -1,6 +1,5 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -16,6 +15,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.model.User;
 
 public class LoginActivity extends AppCompatActivity {
 

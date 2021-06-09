@@ -1,12 +1,8 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.fragments;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+
+import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,23 +22,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.adapters.CommentUserAdapter;
+import com.joctypo.finaleco.model.Comment;
+import com.joctypo.finaleco.model.Project;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProjectDialogFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ProjectDialogFragment extends DialogFragment {
+
+public class ProjectDialogFragmentUser extends DialogFragment {
 
     private EditText etComment;
     private TextView tvProjectDescription, tvDate,tvNumberComents;
     ImageView imgComment;
-    CommentAdapter commentAdapter;
-    Button btnComment;
+    CommentUserAdapter commentUserAdapter;
     FirebaseDatabase db;
     FirebaseAuth auth;
     Project project;
@@ -48,13 +45,13 @@ public class ProjectDialogFragment extends DialogFragment {
     FirebaseUser user;
     ListView listviewComments;
 
-    public ProjectDialogFragment() {
+    public ProjectDialogFragmentUser() {
         // Required empty public constructor
     }
 
 
-    public static ProjectDialogFragment newInstance() {
-        ProjectDialogFragment fragment = new ProjectDialogFragment();
+    public static ProjectDialogFragmentUser newInstance() {
+        ProjectDialogFragmentUser fragment = new ProjectDialogFragmentUser();
         return fragment;
     }
 
@@ -62,19 +59,18 @@ public class ProjectDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_project_dialog, container, false);
+        View root = inflater.inflate(R.layout.fragment_project_dialog_user, container, false);
 
         Bundle args = getArguments();
-        commentAdapter = new CommentAdapter();
+        commentUserAdapter = new CommentUserAdapter();
         String id = args.getString("id");
         db = FirebaseDatabase.getInstance();
         listviewComments = root.findViewById(R.id.listviewComments);
         auth = FirebaseAuth.getInstance();
         etComment = root.findViewById(R.id.etComment);
         tvProjectDescription = root.findViewById(R.id.tvProjectDescription);
-        btnComment = root.findViewById(R.id.btnComment);
         tvDate = root.findViewById(R.id.tvDate);
-        listviewComments.setAdapter(commentAdapter);
+        listviewComments.setAdapter(commentUserAdapter);
         tvNumberComents = root.findViewById(R.id.tvNumberComents);
         user = FirebaseAuth.getInstance().getCurrentUser();
         imgComment=root.findViewById(R.id.imgComment);
@@ -93,8 +89,6 @@ public class ProjectDialogFragment extends DialogFragment {
                             DateFormat df = new SimpleDateFormat("MMM");
                             String month = df.format(project.getMonth());
                             tvDate.setText(month+""+ project.getDay());
-
-
                             LoadComments();
                         }
 
@@ -108,10 +102,7 @@ public class ProjectDialogFragment extends DialogFragment {
 
         }
 
-        btnComment.setOnClickListener(v -> {
 
-        UploadComment();
-        });
         return root;
 
     }
@@ -127,19 +118,19 @@ public class ProjectDialogFragment extends DialogFragment {
         db.getReference().child("comments").orderByChild("projectId").equalTo(project.getId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                Log.e("TAG", String.valueOf(snapshot.getChildrenCount()));
                 if(snapshot.getChildrenCount()>0){
 
                     imgComment.setImageResource(R.drawable.ic_comment_number);
                     tvNumberComents.setText(String.valueOf(snapshot.getChildrenCount()));
 
                 }
-                commentAdapter.Clear();
+                commentUserAdapter.Clear();
                 for (DataSnapshot child:
                       snapshot.getChildren()) {
 
                     Comment comment = child.getValue(Comment.class);
-                    commentAdapter.AddComment(comment);
+                    commentUserAdapter.AddComment(comment);
 
                 }
 
@@ -151,25 +142,10 @@ public class ProjectDialogFragment extends DialogFragment {
             }
         });
     }
-    private void UploadComment() {
 
-        if (etComment.getText().toString().isEmpty()) {
-
-            Toast.makeText(context, "No puedes publicar un comentario vacio", Toast.LENGTH_SHORT).show();
-        } else {
-
-            Comment comment = new Comment(UUID.randomUUID().toString(),etComment.getText().toString(), project.getId(), user.getUid());
-
-            db.getReference().child("comments").child(comment.getId()).setValue(comment).addOnCompleteListener(task->{
-
-                if(task.isSuccessful()){
-
-                    dismiss();
-                }
-            });
-        }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
     }
-
-
 }

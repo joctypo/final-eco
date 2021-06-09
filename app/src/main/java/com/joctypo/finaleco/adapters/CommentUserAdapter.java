@@ -1,26 +1,31 @@
-package com.joctypo.finaleco;
+package com.joctypo.finaleco.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.activities.ContractActivity;
+import com.joctypo.finaleco.model.Comment;
+import com.joctypo.finaleco.model.User;
 
 import java.util.ArrayList;
 
-public class CommentAdapter extends BaseAdapter {
+public class CommentUserAdapter extends BaseAdapter {
 
     ArrayList<Comment> commentArraylist;
     FirebaseDatabase db;
 
-    public CommentAdapter(){
+    public CommentUserAdapter(){
+
 
         commentArraylist = new ArrayList<>();
         db=FirebaseDatabase.getInstance();
@@ -44,14 +49,15 @@ public class CommentAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        convertView = inflater.inflate(R.layout.comment,null);
-        TextView tvNameComment,tvComment;
-
-        tvNameComment =  convertView.findViewById(R.id.tvNameComment);
-        tvComment=convertView.findViewById(R.id.tvComment);
-        tvComment.setText(commentArraylist.get(position).getComment());
+        convertView = inflater.inflate(R.layout.comment_user,null);
+        TextView tvNameCommentUser,tvCommentUser;
+        tvNameCommentUser =  convertView.findViewById(R.id.tvNameCommentUser);
+        tvCommentUser=convertView.findViewById(R.id.tvCommentUser);
+        tvCommentUser.setText(commentArraylist.get(position).getComment());
+        Button btnContratar = convertView.findViewById(R.id.btnContratar);
 
         //carga informacion del usuario que comentó
+
 
         db.getReference().child("users").child(commentArraylist.get(position).getDesignerId()).addValueEventListener(
 
@@ -60,7 +66,7 @@ public class CommentAdapter extends BaseAdapter {
                     public void onDataChange(DataSnapshot snapshot) {
 
                         User user = snapshot.getValue(User.class);
-                        tvNameComment.setText(user.getName());
+                        tvNameCommentUser.setText(user.getName());
 
                     }
 
@@ -70,6 +76,15 @@ public class CommentAdapter extends BaseAdapter {
                     }
                 }
         );
+
+
+        btnContratar.setOnClickListener(v->{
+
+            Intent intent = new Intent(parent.getContext(), ContractActivity.class);
+            intent.putExtra("designerId",commentArraylist.get(position).getDesignerId());
+            intent.putExtra("projectId",commentArraylist.get(position).getProjectId());
+            parent.getContext().startActivity(intent);
+        });
 
         return convertView;
     }
@@ -84,3 +99,5 @@ public class CommentAdapter extends BaseAdapter {
         commentArraylist.clear();
     }
 }
+
+
