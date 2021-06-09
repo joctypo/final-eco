@@ -57,6 +57,7 @@ public class ContractActivity extends AppCompatActivity {
                     project = snapshot.getValue(Project.class);
 
                     project.setTaken(true);
+                    project.setDesignerId(designerId);
 
                     db.getReference().child("projects").child(projectId).setValue(project).addOnCompleteListener(task -> {
 

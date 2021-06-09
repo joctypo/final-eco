@@ -4,16 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.joctypo.finaleco.R;
+import com.joctypo.finaleco.adapters.MyProjectsAdapter;
 import com.joctypo.finaleco.adapters.ProjectAdapter;
 import com.joctypo.finaleco.model.Project;
 
@@ -21,9 +24,10 @@ public class HomeDesignerActivity extends AppCompatActivity {
 
     ListView listviewMyProjects, listViewProjects;
     FirebaseDatabase db;
-    FirebaseAuth auth;
+    FirebaseUser user;
     TextView tvNumberComents;
-    ProjectAdapter myProjectAdapter;
+    ProjectAdapter projectAdapter;
+    MyProjectsAdapter myProjectAdapter;
     ImageView btnProfile,imgComment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +38,9 @@ public class HomeDesignerActivity extends AppCompatActivity {
         listViewProjects=findViewById(R.id.listViewProjects);
         btnProfile=findViewById(R.id.btnProfile);
         db = FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance();
-        myProjectAdapter = new ProjectAdapter();
-
+        projectAdapter = new ProjectAdapter();
+        myProjectAdapter = new MyProjectsAdapter();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         btnProfile.setOnClickListener(v -> {
 
             Intent intent = new Intent(this, ProfileActivity.class);
@@ -49,20 +53,21 @@ public class HomeDesignerActivity extends AppCompatActivity {
 
     private void LoadProjects() {
 
-        db.getReference().child("projects").addValueEventListener(new ValueEventListener(){
+        db.getReference().child("projects").orderByChild("taken").equalTo(false).addValueEventListener(new ValueEventListener(){
 
 
             @Override
             public void onDataChange( DataSnapshot snapshot) {
 
-                listViewProjects.setAdapter(myProjectAdapter);
+                Log.e("TAG", String.valueOf(snapshot.getChildrenCount()));
+                listViewProjects.setAdapter(projectAdapter);
 
-                myProjectAdapter.Clear();
+                projectAdapter.Clear();
                 for (DataSnapshot child:
                      snapshot.getChildren()) {
 
                     Project project = child.getValue(Project.class);
-                    myProjectAdapter.AddNewProject(project);
+                    projectAdapter.AddNewProject(project);
 
                 }
 
@@ -70,6 +75,31 @@ public class HomeDesignerActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled( DatabaseError error) {
+
+            }
+        });
+
+        db.getReference().child("onGoing").orderByChild("designerId").equalTo(user.getUid()).addValueEventListener( new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+
+                listviewMyProjects.setAdapter(myProjectAdapter);
+                myProjectAdapter.Clear();
+                for (DataSnapshot child:
+                     snapshot.getChildren()) {
+
+
+                    Project project = child.getValue(Project.class);
+
+                    myProjectAdapter.AddNewProject(project);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
 
             }
         });
