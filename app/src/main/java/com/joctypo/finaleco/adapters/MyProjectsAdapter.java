@@ -59,11 +59,9 @@ public class MyProjectsAdapter extends BaseAdapter {
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         convertView = layoutInflater.inflate(R.layout.my_projects, null);
-        TextView proyectDescription = convertView.findViewById(R.id.tvProjectDescription);
-        TextView tvNumberComents = convertView.findViewById(R.id.tvNumberComents);
+        TextView proyectDescription = convertView.findViewById(R.id.tvProjectDescriptionTaken);
         ImageView imgCategory = convertView.findViewById(R.id.imgCategory);
         ImageView imgComment = convertView.findViewById(R.id.imgComment);
-
 
         TextView tvDate = convertView.findViewById(R.id.tvDate);
         proyectDescription.setText(projectArrayList.get(position).getProjectDescription());
@@ -81,28 +79,7 @@ public class MyProjectsAdapter extends BaseAdapter {
         }
         DateFormat df = new SimpleDateFormat("MMM");
         String month = df.format(projectArrayList.get(position).getMonth());
-        Log.e("TAG", month);
 
-        db.getReference().child("comments").orderByChild("projectId").equalTo(projectArrayList.get(position).getId()).addValueEventListener(new ValueEventListener() {
-
-
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.getChildrenCount() > 0) {
-
-                    imgComment.setImageResource(R.drawable.ic_comment_number);
-                    tvNumberComents.setText(String.valueOf(snapshot.getChildrenCount()));
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-
-
-        });
 
         tvDate.setText(month + "" + projectArrayList.get(position).getDay());
 //        convertView.setOnClickListener(v -> {
@@ -123,16 +100,16 @@ public class MyProjectsAdapter extends BaseAdapter {
     }
 
 
-    public void OpenFragment(Context context, String id) {
-
-        Bundle args = new Bundle();
-        args.putString("id", id);
-        dialog = ProjectDialogFragmentUser.newInstance();
-        FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
-        dialog.setArguments(args);
-        dialog.show(manager, "dialog");
-
-    }
+//    public void OpenFragment(Context context, String id) {
+//
+//        Bundle args = new Bundle();
+//        args.putString("id", id);
+//        dialog = ProjectDialogFragmentUser.newInstance();
+//        FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();
+//        dialog.setArguments(args);
+//        dialog.show(manager, "dialog");
+//
+//    }
 
     public void Clear() {
 

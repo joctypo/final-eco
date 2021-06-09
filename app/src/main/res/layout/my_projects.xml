@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
+        android:background="@drawable/textview_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +28,7 @@
             app:srcCompat="@drawable/ic_diseno_3d" />
 
         <TextView
-            android:id="@+id/tvProjectDescription"
+            android:id="@+id/tvProjectDescriptionTaken"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -44,8 +46,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvProjectDescription"
-            app:layout_constraintTop_toBottomOf="@+id/tvProjectDescription"
+            app:layout_constraintStart_toStartOf="@+id/tvProjectDescriptionTaken"
+            app:layout_constraintTop_toBottomOf="@+id/tvProjectDescriptionTaken"
             app:srcCompat="@drawable/ic_calendar_clear_outline" />
 
         <TextView
