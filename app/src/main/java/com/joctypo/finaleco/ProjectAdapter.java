@@ -1,5 +1,7 @@
 package com.joctypo.finaleco;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,10 +20,12 @@ import java.util.ArrayList;
 public class ProjectAdapter extends BaseAdapter {
 
     ArrayList<Project> projectArrayList;
+    ProjectDialogFragment dialog;
 
     public ProjectAdapter(){
 
     projectArrayList = new ArrayList<>();
+
 
     }
     @Override
@@ -64,6 +71,12 @@ public class ProjectAdapter extends BaseAdapter {
 
         tvDate.setText(month+""+ projectArrayList.get(position).getDay());
 
+        convertView.setOnClickListener(v->{
+
+            OpenFragment(parent.getContext(),projectArrayList.get(position).getId());
+
+        });
+
         return convertView;
     }
 
@@ -74,6 +87,17 @@ public class ProjectAdapter extends BaseAdapter {
 
     }
 
+    public void OpenFragment(Context context,String id){
+
+        Bundle args = new Bundle();
+        args.putString("id", id);
+        dialog= ProjectDialogFragment.newInstance();
+        FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+        dialog.setArguments(args);
+        dialog.show(manager,"dialog");
+
+
+    }
     public void Clear(){
 
         projectArrayList.clear();

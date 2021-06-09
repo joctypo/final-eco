@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView tvEmail,tvName,tvEditProfile,tvAge,tvInstitution,tvCareer;
+    TextView tvEmail, tvName, tvEditProfile, tvAge, tvInstitution, tvCareer;
     FirebaseAuth auth;
     FirebaseDatabase db;
     ImageView imageViewProfile;
@@ -28,54 +28,53 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        tvEmail =  findViewById(R.id.tvEmail);
-        tvEditProfile= findViewById(R.id.tvEditProfile);
+        tvEmail = findViewById(R.id.tvEmail);
+        tvEditProfile = findViewById(R.id.tvEditProfile);
         tvAge = findViewById(R.id.tvAge);
         tvInstitution = findViewById(R.id.tvInstitution);
-        tvCareer= findViewById(R.id.tvCareer);
+        tvCareer = findViewById(R.id.tvCareer);
         tvName = findViewById(R.id.tvName);
-        auth=FirebaseAuth.getInstance();
-        db=FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        db = FirebaseDatabase.getInstance();
         imageViewProfile = findViewById(R.id.imageViewProfile);
 
         LoadProfile();
 
-        tvEditProfile.setOnClickListener(v->{
+        tvEditProfile.setOnClickListener(v -> {
 
-           Intent intent = new Intent(this,UpdateProfileActivity.class);
-           startActivity(intent);
-           finish();
+            Intent intent = new Intent(this, UpdateProfileActivity.class);
+            startActivity(intent);
+            finish();
         });
 
     }
 
-    private void LoadProfile(){
+    private void LoadProfile() {
 
         String id = auth.getCurrentUser().getUid();
 
-        db.getReference().child("users").child(id).addValueEventListener( new ValueEventListener() {
+        db.getReference().child("users").child(id).addValueEventListener(new ValueEventListener() {
 
 
             @Override
-            public void onDataChange( DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
 
                 User user = snapshot.getValue(User.class);
-                switch (user.getRol()){
+                switch (user.getRol()) {
 
-                    case"designer":
-
+                    case "designer":
                         imageViewProfile.setImageResource(R.drawable.weyui);
                         break;
-                    case"user":
+                    case "client":
                         imageViewProfile.setImageResource(R.drawable.weyui2);
                         break;
-
                 }
-                tvEmail.setText( user.getEmail() );
-                tvName.setText( user.getName() );
-                tvAge.setText( user.getAge() );
-                tvCareer.setText( user.getProfesion());
-                tvInstitution.setText( user.getInstitution());
+                tvEmail.setText(user.getEmail());
+                tvName.setText(user.getName());
+                tvAge.setText(user.getAge());
+                tvCareer.setText(user.getProfesion());
+                tvInstitution.setText(user.getInstitution());
+
             }
 
             @Override

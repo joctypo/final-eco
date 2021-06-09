@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "57844484918",
-    "project_id": "app-final-eco",
-    "storage_bucket": "app-final-eco.appspot.com"
+    "project_number": "478101992521",
+    "firebase_url": "https://finalecosistemas-d8be5-default-rtdb.firebaseio.com",
+    "project_id": "finalecosistemas-d8be5",
+    "storage_bucket": "finalecosistemas-d8be5.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:57844484918:android:df919697fb81c308b50197",
+        "mobilesdk_app_id": "1:478101992521:android:3881a714f555ad916a3b98",
         "android_client_info": {
           "package_name": "com.joctypo.finaleco"
         }
       },
       "oauth_client": [
         {
-          "client_id": "57844484918-i671djpmaokev88ft9tq2adonjce35vl.apps.googleusercontent.com",
+          "client_id": "478101992521-er5fh3s8130op47ekp23pfq0phjrk52l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD-iMfiayUz4CQc2q8DcYgd_NXyV5MQK8A"
+          "current_key": "AIzaSyCuvwhh729dikGTvLnSMyVEuMQNUFJM6pc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "57844484918-i671djpmaokev88ft9tq2adonjce35vl.apps.googleusercontent.com",
+              "client_id": "478101992521-er5fh3s8130op47ekp23pfq0phjrk52l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

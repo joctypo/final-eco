@@ -99,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     startActivity(intent);
                                     break;
 
-                                case "user":
+                                case "client":
                                     intent = new Intent(this, HomeActivity.class);
                                     startActivity(intent);
                                     break;
