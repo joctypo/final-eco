@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                 //el usuario se logea
                 if (task.isSuccessful()) {
 
-                    Toast.makeText(this, "haciendo algo",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Iniciando sesión",Toast.LENGTH_SHORT).show();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                     //Verifica que tipo de usuario es
