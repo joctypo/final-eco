@@ -79,9 +79,8 @@ public class ProjectAdapter extends BaseAdapter {
                 imgCategory.setImageResource(R.drawable.ic_fotografia);
                 break;
         }
-        DateFormat df = new SimpleDateFormat("MMM");
-        String month = df.format(projectArrayList.get(position).getMonth());
-        Log.e("TAG", month);
+
+
 
         db.getReference().child("comments").orderByChild("projectId").equalTo(projectArrayList.get(position).getId()).addValueEventListener(new ValueEventListener() {
 
@@ -104,7 +103,53 @@ public class ProjectAdapter extends BaseAdapter {
 
         });
 
-        tvDate.setText(month + "" + projectArrayList.get(position).getDay());
+        String month ="";
+
+        switch(projectArrayList.get(position).getMonth()){
+
+            case 0:
+                month= "ene";
+                break;
+            case 1:
+                month= "feb";
+
+                break;
+            case 2:
+
+                month= "mar";
+                break;
+            case 3:
+
+                month= "abr";
+                break;
+            case 4:
+                month= "may";
+                break;
+            case 5:
+                month= "jun";
+                break;
+            case 6:
+                month= "jul";
+                break;
+            case 7:
+                month= "ago";
+                break;
+            case 8:
+                month= "sep";
+                break;
+            case 9:
+                month= "oct";
+                break;
+            case 10:
+                month= "nov";
+                break;
+            case 11:
+                month= "dic";
+                break;
+        }
+
+
+        tvDate.setText(month + " " + projectArrayList.get(position).getDay());
         convertView.setOnClickListener(v -> {
 
             OpenFragment(parent.getContext(), projectArrayList.get(position).getId());
