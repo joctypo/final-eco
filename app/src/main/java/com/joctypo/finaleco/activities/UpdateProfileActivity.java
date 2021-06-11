@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase db;
     User currentUser;
+    ImageView imageViewProfile2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         etAge = findViewById(R.id.etAge);
         etInstitution = findViewById(R.id.etInstitution);
         etProfesion = findViewById(R.id.etProfesion);
+        imageViewProfile2= findViewById(R.id.imageViewProfile2);
         LoadProfile();
 
         btnUpdate.setOnClickListener(v->{
@@ -77,8 +80,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
 
-
-
             db.getReference().child("users").child(user.getUid()).addValueEventListener( new ValueEventListener() {
 
 
@@ -86,6 +87,18 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 public void onDataChange( DataSnapshot snapshot) {
 
                     currentUser = snapshot.getValue(User.class);
+
+                    switch (currentUser.getRol()) {
+
+                        case"designer":
+
+                            imageViewProfile2.setImageResource(R.drawable.weyui);
+                            break;
+
+                        case"client":
+                            imageViewProfile2.setImageResource(R.drawable.weyui2);
+                            break;
+                    }
 
                     tvName2.setText(currentUser.getName());
                 }
@@ -96,12 +109,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
                 }
             });
         }
-
-
-
-
-
-
 
     }
 }
