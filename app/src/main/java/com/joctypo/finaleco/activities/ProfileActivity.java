@@ -20,7 +20,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvEmail, tvName, tvEditProfile, tvAge, tvInstitution, tvCareer;
     FirebaseAuth auth;
     FirebaseDatabase db;
-    ImageView imageViewProfile;
+    ImageView imageViewProfile,btnHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvEditProfile = findViewById(R.id.tvEditProfile);
         tvAge = findViewById(R.id.tvAge);
         tvInstitution = findViewById(R.id.tvInstitution);
+        btnHome=findViewById(R.id.btnHome);
         tvCareer = findViewById(R.id.tvCareer);
         tvName = findViewById(R.id.tvName);
         auth = FirebaseAuth.getInstance();
@@ -43,6 +44,10 @@ public class ProfileActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, UpdateProfileActivity.class);
             startActivity(intent);
+            finish();
+        });
+        btnHome.setOnClickListener(v -> {
+
             finish();
         });
 

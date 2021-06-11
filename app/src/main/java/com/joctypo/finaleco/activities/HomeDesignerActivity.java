@@ -25,10 +25,9 @@ public class HomeDesignerActivity extends AppCompatActivity {
     ListView listviewMyProjects, listViewProjects;
     FirebaseDatabase db;
     FirebaseUser user;
-    TextView tvNumberComents;
     ProjectAdapter projectAdapter;
     MyProjectsAdapter myProjectAdapter;
-    ImageView btnProfile,imgComment;
+    ImageView btnProfile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
