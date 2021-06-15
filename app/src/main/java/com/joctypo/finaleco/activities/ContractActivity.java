@@ -97,10 +97,10 @@ public class ContractActivity extends AppCompatActivity {
                 switch (user.getRol()) {
 
                     case "designer":
-                        imageViewProfile4.setImageResource(R.drawable.weyui);
+                        imageViewProfile4.setImageResource(R.drawable.imagen);
                         break;
                     case "client":
-                        imageViewProfile4.setImageResource(R.drawable.weyui2);
+                        imageViewProfile4.setImageResource(R.drawable.imagen2);
                         break;
                 }
                 tvEmail.setText(user.getEmail());

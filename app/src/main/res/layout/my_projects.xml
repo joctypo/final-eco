@@ -91,6 +91,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvNumberComents"
             app:layout_constraintTop_toTopOf="@+id/tvNumberComents"
-            app:srcCompat="@drawable/weyui2" />
+            app:srcCompat="@drawable/imagen2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,6 +25,7 @@ import com.joctypo.finaleco.R;
 import com.joctypo.finaleco.adapters.CommentDesignerAdapter;
 import com.joctypo.finaleco.model.Comment;
 import com.joctypo.finaleco.model.Project;
+import com.joctypo.finaleco.model.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ import java.util.UUID;
 public class ProjectDialogFragment extends DialogFragment {
 
     private EditText etComment;
-    private TextView tvProjectDescription, tvDate,tvNumberComents;
+    private TextView tvProjectDescription, tvDate,tvNumberComents,tvName;
     ImageView imgComment;
     CommentDesignerAdapter commentDesignerAdapter;
     Button btnComment;
@@ -44,6 +45,7 @@ public class ProjectDialogFragment extends DialogFragment {
     Context context;
     FirebaseUser user;
     ListView listviewComments;
+    User usuario;
 
     public ProjectDialogFragment() {
         // Required empty public constructor
@@ -75,9 +77,10 @@ public class ProjectDialogFragment extends DialogFragment {
         tvNumberComents = root.findViewById(R.id.tvNumberComents);
         user = FirebaseAuth.getInstance().getCurrentUser();
         imgComment=root.findViewById(R.id.imgComment);
-
+        tvName = root.findViewById(R.id.tvName);
 
         if(user != null){
+
 
             //baja la informacion del proyecto
             db.getReference().child("projects").child(id).addValueEventListener(
@@ -86,10 +89,11 @@ public class ProjectDialogFragment extends DialogFragment {
                         public void onDataChange(DataSnapshot snapshot) {
 
                             project = snapshot.getValue(Project.class);
+                           tvName.setText("Cliente");
                             tvProjectDescription.setText(project.getProjectDescription());
                             DateFormat df = new SimpleDateFormat("MMM");
                             String month = df.format(project.getMonth());
-                            tvDate.setText(month+""+ project.getDay());
+                            tvDate.setText(month+" "+ project.getDay());
 
 
                             LoadComments();
@@ -152,7 +156,7 @@ public class ProjectDialogFragment extends DialogFragment {
 
         if (etComment.getText().toString().isEmpty()) {
 
-            Toast.makeText(context, "No puedes publicar un comentario vacio", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "No puedes publicar un comentario vacío", Toast.LENGTH_SHORT).show();
         } else {
 
             Comment comment = new Comment(UUID.randomUUID().toString(),etComment.getText().toString(), project.getId(), user.getUid());

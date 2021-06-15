@@ -29,7 +29,7 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvProfile2"
-        app:srcCompat="@drawable/weyui" />
+        app:srcCompat="@drawable/imagen" />
 
     <TextView
         android:id="@+id/tvProfile2"

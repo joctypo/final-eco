@@ -92,11 +92,11 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
                         case"designer":
 
-                            imageViewProfile2.setImageResource(R.drawable.weyui);
+                            imageViewProfile2.setImageResource(R.drawable.imagen);
                             break;
 
                         case"client":
-                            imageViewProfile2.setImageResource(R.drawable.weyui2);
+                            imageViewProfile2.setImageResource(R.drawable.imagen2);
                             break;
                     }
 

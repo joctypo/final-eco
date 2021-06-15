@@ -1,9 +1,11 @@
 package com.joctypo.finaleco.activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseDatabase db;
     ImageView imageViewProfile,btnHome;
+    Button logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,27 @@ public class ProfileActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         imageViewProfile = findViewById(R.id.imageViewProfile);
+        logout = findViewById(R.id.logout);
 
         LoadProfile();
+
+        logout.setOnClickListener(v-> {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("Salir")
+                    .setMessage("¿Estas seguro de salir?")
+                    .setNegativeButton("No",(dialog,id)->{
+                        dialog.dismiss();
+                    })
+                    .setPositiveButton("Si" ,(dialog,id)->{
+                        auth.signOut();
+                        Intent i = new Intent(this, LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    });
+            builder.show();
+
+        });
 
         tvEditProfile.setOnClickListener(v -> {
 
@@ -67,10 +89,10 @@ public class ProfileActivity extends AppCompatActivity {
                 switch (user.getRol()) {
 
                     case "designer":
-                        imageViewProfile.setImageResource(R.drawable.weyui);
+                        imageViewProfile.setImageResource(R.drawable.imagen);
                         break;
                     case "client":
-                        imageViewProfile.setImageResource(R.drawable.weyui2);
+                        imageViewProfile.setImageResource(R.drawable.imagen2);
                         break;
                 }
                 tvEmail.setText(user.getEmail());

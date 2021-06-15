@@ -26,6 +26,7 @@ import com.joctypo.finaleco.R;
 import com.joctypo.finaleco.adapters.CommentUserAdapter;
 import com.joctypo.finaleco.model.Comment;
 import com.joctypo.finaleco.model.Project;
+import com.joctypo.finaleco.model.User;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,7 +36,7 @@ import java.util.UUID;
 public class ProjectDialogFragmentUser extends DialogFragment {
 
     private EditText etComment;
-    private TextView tvProjectDescription, tvDate,tvNumberComents;
+    private TextView tvProjectDescription, tvDate,tvNumberComents,tvName;
     ImageView imgComment;
     CommentUserAdapter commentUserAdapter;
     FirebaseDatabase db;
@@ -44,6 +45,7 @@ public class ProjectDialogFragmentUser extends DialogFragment {
     Context context;
     FirebaseUser user;
     ListView listviewComments;
+    User usuario;
 
     public ProjectDialogFragmentUser() {
         // Required empty public constructor
@@ -74,17 +76,18 @@ public class ProjectDialogFragmentUser extends DialogFragment {
         tvNumberComents = root.findViewById(R.id.tvNumberComents);
         user = FirebaseAuth.getInstance().getCurrentUser();
         imgComment=root.findViewById(R.id.imgComment);
-
+        tvName = root.findViewById(R.id.tvName);
 
         if(user != null){
 
-            //baja la informacion del proyecto
+            //baja la información del proyecto
             db.getReference().child("projects").child(id).addValueEventListener(
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snapshot) {
 
                             project = snapshot.getValue(Project.class);
+                           tvName.setText("Cliente");
                             tvProjectDescription.setText(project.getProjectDescription());
                             DateFormat df = new SimpleDateFormat("MMM");
                             String month = df.format(project.getMonth());
